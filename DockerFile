@@ -12,7 +12,7 @@ WORKDIR /app/backend
 COPY backend/package*.json ./
 RUN npm install
 
-# Stage 3: Production backend
+# Stage 3: Production backend 
 FROM node:18-alpine
 WORKDIR /app
 
