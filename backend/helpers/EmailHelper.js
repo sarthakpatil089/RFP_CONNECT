@@ -10,9 +10,7 @@ dotenv.config();
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 export async function sendVerificationEmail(email, token, userId, userType) {
-  const baseUrl =
-    `${process.env.PROTOCAL}://${process.env.DB_HOST}:${process.env.PORT}` ||
-    "http://localhost:8080";
+  const baseUrl = `${process.env.BACKEND_URL}` || "http://localhost:8080";
   const verificationUrl = `${baseUrl}/api/verify-email?token=${token}&userId=${userId}&userType=${userType}`;
 
   const msg = {
@@ -98,9 +96,7 @@ export async function sendVendorBuyersProposal(token, userId, rfpId) {
     var { emailAddress, vendorCompanyName } = await getVendorMailById(userId);
     var rfp = await getRFPById(rfpId);
     var { data } = await getBuyerById(rfp.toJSON().buyerId);
-    const baseUrl =
-      `${process.env.PROTOCAL}://${process.env.DB_HOST}:${process.env.PORT}` ||
-      "http://localhost:8080";
+    const baseUrl = `${process.env.BACKEND_URL}` || "http://localhost:8080";
     const acceptUrl = `${baseUrl}/api/rfp/vendor-response/${token}/${userId}/${rfpId}/true`;
     const rejectUrl = `${baseUrl}/api/rfp/vendor-response/${token}/${userId}/${rfpId}/false`;
     const rfpJSON = rfp.toJSON();
@@ -242,8 +238,7 @@ export async function sendProposalResponseToBuyer(isAccepted, rfpId, vendorId) {
     var { emailAddress, vendorCompanyName } = await getVendorMailById(vendorId);
     var rfp = await getRFPById(rfpId);
     const frontendUrl =
-      `${process.env.FRONTEND_URL}` ||
-      "http://localhost:3000";
+      `${process.env.FRONTEND_URL}` || "http://localhost:3000";
     const rfpTitle = rfp.toJSON().rfpTitle;
     const responseType = isAccepted === "true" ? "accepted" : "rejected";
     const rfpDashboardUrl = `${frontendUrl}/rfp-matching/${rfpId}`;
