@@ -1,0 +1,22 @@
+Buyers 1 — N BuyerRFPs
+
+FK: BuyerRFPs.buyerId → Buyers.id
+BuyerRFPs 1 — 1 RfpParsedRequirements
+
+Embedded/one-to-one: BuyerRFPs.aiParsedRequirements (nullable)
+BuyerRFPs N — N Vendors (many-to-many with metadata)
+
+Join table: RfpVendor (rfpId → BuyerRFPs.id, vendorId → Vendors.id)
+Join stores: notificationSent, score, proposalAccepted, timestamps
+BuyerRFPs 1 — N shortlistedVendorsList
+
+RFP has array shortlistedVendorsList[]; each entry should reference vendorId (shortlistedVendorsList.vendorId → Vendors.id)
+BuyerRFPs 1 — N SelectedVendors (projection of vendor info per RFP)
+
+SelectedVendors.vendorId → Vendors.id (used as per-RFP vendor info + RfpVendor metadata)
+Vendors 1 — N VendorProducts
+
+FK: VendorProducts.vendorId → Vendors.id
+Vendors 1 — N RfpVendor (inverse of RFP–Vendor join)
+
+FK: RfpVendor.vendorId → Vendors.id
