@@ -14,10 +14,21 @@ config();
 const app = express();
 dotenv.config();
 
-app.use(cors());
+const allowedOrigins = [
+  "http://localhost:3000",
+  process.env.FRONTEND_URL,
+  "https://rfp-connect.vercel.app",
+];
+
 app.use(
   cors({
-    origin: `${process.env.FRONTEND_URL}`,
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
