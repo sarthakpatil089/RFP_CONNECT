@@ -156,20 +156,27 @@ export default function Header() {
         {mobileMenuOpen && (
           <div className="md:hidden py-6 border-t border-textprimary/10">
             <nav className="flex flex-col gap-4">
-              <Link
-                to="/vendors"
-                className="font-paragraph text-sm text-textprimary hover:text-primary transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Vendors
-              </Link>
-              <Link
-                to="/buyers"
-                className="font-paragraph text-sm text-textprimary hover:text-primary transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Buyers
-              </Link>
+              {isLoggedIn && (
+                <>
+                  {" "}
+                  {!isVendor && (
+                    <Link
+                      to="/vendors"
+                      className="font-paragraph text-sm text-textprimary hover:text-primary transition-colors"
+                    >
+                      Vendors
+                    </Link>
+                  )}
+                  {isVendor && (
+                    <Link
+                      to="/buyers"
+                      className="font-paragraph text-sm text-textprimary hover:text-primary transition-colors"
+                    >
+                      Buyers
+                    </Link>
+                  )}
+                </>
+              )}
 
               {!isLoggedIn && (
                 <>
@@ -199,13 +206,14 @@ export default function Header() {
 
               {isLoggedIn && (
                 <>
-                  <Link
-                    to="/rfp-submit"
-                    className="font-paragraph text-sm px-6 py-3 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors inline-block text-center"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {"{ Submit RFP → }"}
-                  </Link>
+                  {!isVendor && (
+                    <Link
+                      to="/rfp-submit"
+                      className="font-paragraph text-sm px-6 py-3 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                    >
+                      {"{ Submit RFP → }"}
+                    </Link>
+                  )}
                   <Link
                     to={`${user.role}/${user.id}`}
                     className="font-paragraph text-sm text-textprimary hover:text-primary transition-colors"
