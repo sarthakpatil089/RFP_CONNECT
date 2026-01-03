@@ -242,7 +242,7 @@ export async function sendProposalResponseToBuyer(isAccepted, rfpId, vendorId) {
     var { emailAddress, vendorCompanyName } = await getVendorMailById(vendorId);
     var rfp = await getRFPById(rfpId);
     const frontendUrl =
-      `${process.env.PROTOCAL}://${process.env.DB_HOST}:${process.env.FE_PORT}` ||
+      `${process.env.FRONTEND_URL}` ||
       "http://localhost:3000";
     const rfpTitle = rfp.toJSON().rfpTitle;
     const responseType = isAccepted === "true" ? "accepted" : "rejected";

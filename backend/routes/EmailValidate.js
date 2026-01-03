@@ -38,7 +38,7 @@ router.get("/verify-email", async (req, res) => {
   await verificationToken.update({ usedAt: new Date() });
 
   res.redirect(
-    `${process.env.PROTOCAL}://${process.env.DB_HOST}:${process.env.FE_PORT}/login?verified=true`
+    `${process.env.FRONTEND_URL}/login?verified=true`
   );
 });
 
