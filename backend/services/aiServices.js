@@ -1,4 +1,4 @@
-import { openai } from "./openaiClient.js";
+import { openai } from "./openAiClient.js";
 
 export async function callAiParser(input) {
   const { title, requirements, expectedDelivery, budget, context } = input;
