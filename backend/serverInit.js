@@ -16,11 +16,11 @@ export const startServer = async (port, app) => {
   try {
     await sequelize.authenticate();
     console.log("Sequelize connected");
-    
+
     await sequelize.sync({ alter: true });
     console.log("Database synced (tables created/updated)");
 
-    app.listen(port, () => {
+    app.listen(port, "0.0.0.0", () => {
       console.log(`Server listening on port ${port}`);
     });
   } catch (err) {
